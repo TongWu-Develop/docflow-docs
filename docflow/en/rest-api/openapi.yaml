@@ -68,6 +68,41 @@ paths:
               - classify
               - extract
             example: classify
+        - name: parser_remove_watermark
+          in: query
+          description: Remove watermark (0 no, 1 yes)
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: parser_crop_dewarp
+          in: query
+          description: Crop and dewarp (0 no, 1 yes)
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: parser_apply_merge
+          in: query
+          description: Merge cross-page paragraphs and tables (0 no, 1 yes)
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: parser_formula_level
+          in: query
+          description: Formula recognition level (0 recognizes both display and inline formulas, 1 recognizes display formulas only, 2 recognizes no formulas)
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: parser_table_text_split_mode
+          in: query
+          description: Split text blocks crossed by table lines (0 no, 1 yes)
+          required: false
+          schema:
+            type: integer
+            default: 0
       requestBody:
         required: true
         content:
@@ -649,6 +684,30 @@ paths:
                   type: string
                   description: Task ID
                   example: 1234567890
+                parser_params:
+                  type: object
+                  description: Parser parameter configuration; leave empty to use the original configuration
+                  properties:
+                    formula_level:
+                      type: integer
+                      description: Formula recognition level (0 recognizes both display and inline formulas, 1 recognizes display formulas only, 2 recognizes no formulas)
+                      example: 0
+                    apply_merge:
+                      type: integer
+                      description: Merge cross-page paragraphs and tables (0 no, 1 yes)
+                      example: 1
+                    table_text_split_mode:
+                      type: integer
+                      description: Split text blocks crossed by table lines (0 no, 1 yes)
+                      example: 0
+                    crop_dewarp:
+                      type: integer
+                      description: Crop and dewarp (0 no, 1 yes)
+                      example: 0
+                    remove_watermark:
+                      type: integer
+                      description: Remove watermark (0 no, 1 yes)
+                      example: 0
               required:
                 - workspace_id
                 - task_id
